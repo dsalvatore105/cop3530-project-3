@@ -3,7 +3,7 @@ This repo contains source code for Project 3b for Team CDE\
 \
 Commands:\
 **LOAD Datapoints**\
-```load <dp>\```\
+```load <dp>```\
 Loads X amount of datapoints from the 'data.csv' file into memory.\
 \
 **PREDICT from Linear Regression**\
