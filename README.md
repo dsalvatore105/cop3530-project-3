@@ -5,7 +5,7 @@ Commands:\
 **LOAD Datapoints**\
 ```load <dp>```\
 Loads X amount of datapoints from the 'data.csv' file into memory.\
----
+---\
 **PREDICT from Linear Regression**\
 ```lr <dp> <x>```\
 \
