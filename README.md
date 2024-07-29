@@ -3,14 +3,14 @@ This repo contains source code for Project 3b for Team CDE\
 \
 Commands:\
 **LOAD Datapoints**\
-'load <datapoints>'\
+'load <dp>'\
 Loads X amount of datapoints from the 'data.csv' file into memory.
 
 **PREDICT from Linear Regression**\
-'lr <datapoints> <sq_feet>'\
+'lr <dp> <sq_feet>'\
 \
 **PREDICT from K-Nearest Neighbor**\
-'knn <datapoints> <sq_feet>'\
+'knn <dp> <sq_feet>'\
 \
-**datapoints**: The number of data points that will be factored into the calculation.\
+**dp**: The total number of data points that will be used in the algorithms.\
 Both of these commands will print the predicted price using the given variable(s) as input, using the specified algorithm.
