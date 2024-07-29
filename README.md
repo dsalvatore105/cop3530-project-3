@@ -4,7 +4,8 @@ This repo contains source code for Project 3b for Team CDE\
 Commands:\
 **LOAD Datapoints**\
 ```load <dp>```\
-Loads X amount of datapoints from the 'data.csv' file into memory.\
+\
+**Functionality**: Loads X amount of datapoints from the 'data.csv' file into memory.\
 
 ---
 
@@ -17,4 +18,4 @@ Loads X amount of datapoints from the 'data.csv' file into memory.\
 **dp**: The total number of data points that will be used in the algorithms.\
 **x**: The first variable the prediction will be based upon. For the first stage of the project, this will just be the square footage.\
 \
-Both of these commands will print the predicted price using the given variable(s) as input, using the specified algorithm.
+**Functionality**: Both of these commands will print the predicted price using the given variable(s) as input, using the specified algorithm.
