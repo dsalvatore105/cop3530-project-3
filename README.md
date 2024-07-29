@@ -1,4 +1,5 @@
-# cop3530-project-3
+# COP3530 Project 3
+## Estimating Property Prices in Clark County, Washington
 This repo contains source code for Project 3b for Team CDE
 
 # Commands
