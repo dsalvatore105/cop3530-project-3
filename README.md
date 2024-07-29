@@ -5,6 +5,7 @@ Commands:\
 **LOAD Datapoints**\
 ```load <dp>```\
 \
+**dp**: The total number of data points to load.\
 **Functionality**: Loads X amount of datapoints from the 'data.csv' file into memory.
 
 ---
