@@ -2,7 +2,6 @@
 This repo contains source code for Project 3b for Team CDE
 
 # Commands
----
 **LOAD Datapoints**\
 ```load <dp>```\
 \
