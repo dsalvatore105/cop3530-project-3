@@ -5,14 +5,25 @@ int main() {
     csvParser* parser = new csvParser();
     vector<vector<int>> data;
 
-    parser->setFile("data/simple.csv");
-    parser->parseRows(data, 4);
+    // Recycled from Project 1
+    int cmdsToRun = 0;
+	cin >> cmdsToRun;
 
-    //Print data
-    for (auto& row : data) {
-        for (int& point : row) cout << point;
-        cout << endl;
-    }
+	for (int i = 0; i < cmdsToRun; i++) {
+		string cmd;
+		cin >> cmd;
+
+		if (cmd == "printData") {  
+            parser->setFile("data/simple.csv");
+            parser->parseRows(data, 100000);
+
+            // Print data
+            for (auto& row : data) {
+                for (int& point : row) cout << point;
+                cout << endl;
+            }
+        }
+	}
 
     return 0;
 }
