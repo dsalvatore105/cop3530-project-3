@@ -11,6 +11,7 @@ This repo contains source code for Project 3b for Team CDE
 \
 **PRINT Datapoints**\
 ```printData```\
+\
 **Functionality**: Prints loaded datapoints.
 
 ---
