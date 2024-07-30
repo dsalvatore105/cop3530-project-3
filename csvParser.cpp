@@ -1,23 +1,4 @@
-#include "iostream"
-#include "vector"
-#include "string"
-#include "fstream"
-#include "sstream"
-#pragma once
-using namespace std;
-
-class csvParser {
-    vector<vector<int>> data;
-    char lineBreak = '\n';
-    char delimiter = ',';
-    string fileToRead = "";
-
-public:
-
-    void parseRows(vector<vector<int>>& data, int rows);
-    void setFile(string fileName);
-    vector<int> splitToInts(string& rowString);
-};
+#include "csvParser.h"
 
 vector<int> csvParser::splitToInts(string& rowString) {
     // Takes a string and splits it into ints
