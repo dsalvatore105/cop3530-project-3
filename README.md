@@ -8,6 +8,9 @@ This repo contains source code for Project 3b for Team CDE
 \
 **dp**: The total number of data points to load.\
 **Functionality**: Loads X amount of datapoints from the 'data.csv' file into memory.
+\
+**PRINT Datapoints**\
+```printData```
 
 ---
 
