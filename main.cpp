@@ -1,9 +1,11 @@
 #include "src/csvParser.cpp"
 #include "src/k-NearestNeighbor.cpp"
+#include "src/LinearRegression.cpp"
 using namespace std;
 
 int main() {
     csvParser* parser = new csvParser();
+    LR* lrAlgo = new LR();
     kNN* knnAlgo = new kNN();
 
     vector<vector<int>> data;
@@ -21,6 +23,11 @@ int main() {
 
 		if (cmd == "printData") {  
             // Print data
+        } else if (cmd == "lr") {
+            // displays function info
+            lrAlgo->getLinearRegression(data);
+        } else if (cmd == "predict_lr") {
+            // Ready to be implemented just wanted to double check some things about how data is parsed.
 
         } else if (cmd == "kNN") {
             int K = 2;
