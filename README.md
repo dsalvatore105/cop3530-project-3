@@ -26,3 +26,10 @@ This repo contains source code for Project 3b for Team CDE
 **x**: The first variable the prediction will be based upon. For the first stage of the project, this will just be the square footage.\
 \
 **Functionality**: Both of these commands will print the predicted price using the given variable(s) as input, using the specified algorithm.
+
+---
+
+**BENCHMARK**\
+```benchmark```\
+\
+**Functionality**: The method for determining which algorithm makes more accurate predictions. Automatically runs LR and KNN and prints results and statistics.
