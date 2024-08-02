@@ -21,13 +21,19 @@ int main() {
 
 		if (cmd == "printData") {  
             // Print data
-            for (auto& row : data) {
-                for (int& point : row) cout << point;
-                cout << endl;
-            }
+
         } else if (cmd == "kNN") {
-            knnAlgo->printPoint(data[0]);
-            knnAlgo->getNearestPoints(data[0], data, 2);
+            int K = 2;
+            vector<pair<double, vector<int>>> nearestPoints = knnAlgo->getNearestPoints(data[0], data, K);
+
+            for (int i = 0; i < K; i++) {
+                double distance = nearestPoints[i].first;
+                vector<int>& point = nearestPoints[i].second;
+                cout << setprecision(2) << fixed;
+
+                cout << "K = " << i+1 << " {Distance: " << distance << "} | Nearest point: ";
+                parser->printRow(point);
+            }
         } else if (cmd == "predict_kNN") {
             int x;
             cout << "Find price for what square footage?: ";
@@ -40,6 +46,9 @@ int main() {
             cout << knnAlgo->predict(x, data, K) << endl; // just use one variable for now
         }
 	}
+
+    delete(parser);
+    delete(knnAlgo);
 
     return 0;
 }

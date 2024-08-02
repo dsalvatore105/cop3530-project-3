@@ -8,18 +8,6 @@ double kNN::getDistanceOneVariable(vector<int>&A, vector<int>&B) {
     return abs(A[0] - B[0]);
 }
 
-// This could be moved outside of kNN since it's not really exclusive to it.
-void kNN::printPoint(vector<int>& point) {
-    cout << setprecision(2) << fixed;
-
-    cout << "{";
-    for (int i = 0; i < point.size(); i++) {
-        cout << point[i];
-        if (i != point.size() - 1) std::cout << ", ";
-    }
-    cout << "}" << endl;
-}
-
 vector<pair<double, vector<int>>> kNN::getNearestPoints(vector<int>& thisPoint, vector<vector<int>>& data, unsigned int K) {
     int totalPoints = data.size();
     vector<pair<double, vector<int>>> distancePointPairs;
@@ -36,15 +24,6 @@ vector<pair<double, vector<int>>> kNN::getNearestPoints(vector<int>& thisPoint, 
     // Reduce the vector to only be the first K elements. We don't need the rest.
     for (int i = 0; i < K; i++) K_distancePointPairs.push_back(distancePointPairs[i]);
     distancePointPairs.clear();
-
-    for (int i = 0; i < K; i++) {
-        double distance = K_distancePointPairs[i].first;
-        vector<int>& point = K_distancePointPairs[i].second;
-        cout << setprecision(2) << fixed;
-
-        cout << "K = " << i+1 << " {Distance: " << distance << "} | Nearest point: ";
-        printPoint(point);
-    }
 
     return K_distancePointPairs;
 }

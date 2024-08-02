@@ -8,7 +8,13 @@ vector<int> csvParser::splitToInts(string& rowString) {
 
     for (int i = 0; i <= rowLength; i++) {
         char character = rowString[i];
+
         if (i == rowLength || character == delimiter) {
+            if (to_int == "") { 
+                //cout << "There was a problem" << endl; // Malformed data, ignore the row
+                return {};
+            };
+
             data.push_back(stoi(to_int));
             to_int = "";
             continue;
@@ -26,6 +32,22 @@ void csvParser::setFile(string fileName) {
     else cout << "No file with name: " << fileName << " exists!" << endl;
 }
 
+void csvParser::printRow(vector<int>& row) {
+    cout << "{";
+    const int& size = row.size();
+
+    for (int i = 0; i < size; i++) {
+        cout << row[i];
+        if (i != size - 1) cout << ", "; 
+    }
+
+    cout << "}" << endl;
+}
+
+void csvParser::printData(vector<vector<int>>& givenData) {
+    for (auto& row : data) printRow(row);
+}
+
 void csvParser::parseRows(vector<vector<int>>& data, int rows) {
     if (fileToRead == "") {cout << "Please use setFile() on a valid .csv file." << endl; return;} 
 
@@ -36,7 +58,7 @@ void csvParser::parseRows(vector<vector<int>>& data, int rows) {
     string row;
     while (getline(file, row)) {
         vector<int> values = splitToInts(row);
-        data.push_back(values);
+        if (values.size() > 0) data.push_back(values);
         rowsParsed++;
         if (rowsParsed >= rows) break;
     }
