@@ -55,6 +55,7 @@ int main() {
 	}
 
     delete(parser);
+    delete(lrAlgo);
     delete(knnAlgo);
 
     return 0;
