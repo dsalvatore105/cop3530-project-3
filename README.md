@@ -17,8 +17,11 @@ This repo contains source code for Project 3b for Team CDE
 ---
 
 **PREDICT from Linear Regression**\
-```lr <dp> <x>```\
+```lr <dp> <x1> <x2>```\
 \
+**dp**: Quantity of data points to be used in algorithm.\
+**x1**: Construction year prediction variable. (Ex. "1965")\
+**x2**: Square footage prediction variable. (Ex. "2235")\
 **PREDICT from K-Nearest Neighbor**\
 ```knn <dp> <x>```\
 \

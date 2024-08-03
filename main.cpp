@@ -10,8 +10,8 @@ int main() {
 
     vector<vector<int>> data;
 
-    parser->setFile("data/simple.csv");
-    parser->parseRows(data, 100000);
+    //parser->setFile("data/simple.csv");
+    //parser->parseRows(data, 100000);
 
     // Recycled from Project 1
     int cmdsToRun = 0;
@@ -23,12 +23,22 @@ int main() {
 
 		if (cmd == "printData") {  
             // Print data
+            parser->printData(data);
+        } else if (cmd == "load"){
+            // Load data
+            parser->setFile("data/csvs/totaldata.csv");
+            parser->parseRows(data, 50);
         } else if (cmd == "lr") {
             // displays function info
-            lrAlgo->getLinearRegression(data);
-        } else if (cmd == "predict_lr") {
-            // Ready to be implemented just wanted to double check some things about how data is parsed.
+            int dp;
+            double x1, x2;
+            cin >> dp >> x1 >> x2;
+            
+            cout << setprecision(2) << fixed;
+            cout << "Predicted value for year " << x1 << " and square footage " << x2 << ": "
+            << lrAlgo->getMultLinearRegression(data, dp, x1, x2) << endl;
 
+            //lrAlgo->getLinearRegression(data);
         } else if (cmd == "kNN") {
             int K = 2;
             vector<pair<double, vector<int>>> nearestPoints = knnAlgo->getNearestPoints(data[0], data, K);
@@ -52,6 +62,7 @@ int main() {
 
             cout << knnAlgo->predict(x, data, K) << endl; // just use one variable for now
         }
+        cin.clear();
 	}
 
     delete(parser);

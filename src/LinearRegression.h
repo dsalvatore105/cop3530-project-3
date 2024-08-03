@@ -9,6 +9,6 @@ using namespace std;
 
 class LR {
 public:
-    void getLinearRegression(vector<vector<int>>& data);
-
+    double getLinearRegression(vector<vector<int>>& data, int dp, double X);
+    double getMultLinearRegression(vector<vector<int>>& data, int dp, double X1, double X2);
 };
