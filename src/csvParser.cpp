@@ -45,7 +45,7 @@ void csvParser::printRow(vector<int>& row) {
 }
 
 void csvParser::printData(vector<vector<int>>& givenData) {
-    for (auto& row : data) printRow(row);
+    for (auto& row : givenData) printRow(row);
 }
 
 void csvParser::parseRows(vector<vector<int>>& data, int rows) {
