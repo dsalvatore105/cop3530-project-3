@@ -24,7 +24,7 @@ This repo contains source code for Project 3b for Team CDE
 **x2**: Square footage prediction variable. (Ex. "2235")\
 \
 **PREDICT from K-Nearest Neighbor**\
-```knn <dp> <x>```\
+```knn <dp> <x>```
 
 **Functionality**: Both of these commands will print the predicted price using the given variable(s) as input, using the specified algorithm.
 
