@@ -111,7 +111,7 @@ double LR::getMultLinearRegression(vector<vector<int>>& data, int dp, double X1,
 	double B_2 = (X1_sqr_SUM * X2Y_SUM - X1X2_SUM * X1Y_SUM) / (X1_sqr_SUM * X2_sqr_SUM - X1X2_SUM * X1X2_SUM);
 	double B_0 = Y_MEAN - B_1 * X1_MEAN - B_2 * X2_MEAN;
 
-	cout << endl << B_0 << " + " << B_1 << "x1 + " << B_2 << "x2" << endl << "=";
+	//cout << endl << B_0 << " + " << B_1 << "x1 + " << B_2 << "x2" << endl << "=";
 	
 	return B_0 + B_1 * X1 + B_2 * X2;
 }
