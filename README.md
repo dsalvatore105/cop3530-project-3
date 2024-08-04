@@ -24,16 +24,13 @@ This repo contains source code for Project 3b for Team CDE
 **x2**: Square footage prediction variable. (Ex. "2235")\
 \
 **PREDICT from K-Nearest Neighbor**\
-```knn <dp> <x>```\
-\
-**dp**: The total number of data points that will be used in the algorithms.\
-**x**: The first variable the prediction will be based upon. For the first stage of the project, this will just be the square footage.\
-\
+```knn <dp> <x>```
+
 **Functionality**: Both of these commands will print the predicted price using the given variable(s) as input, using the specified algorithm.
 
 ---
 
 **BENCHMARK**\
-```benchmark```\
+```benchmark <dp>```\
 \
 **Functionality**: The method for determining which algorithm makes more accurate predictions. Automatically runs LR and KNN and prints results and statistics.
