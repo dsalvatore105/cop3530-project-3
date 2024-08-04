@@ -31,6 +31,6 @@ This repo contains source code for Project 3b for Team CDE
 ---
 
 **BENCHMARK**\
-```benchmark```\
+```benchmark <dp>```\
 \
 **Functionality**: The method for determining which algorithm makes more accurate predictions. Automatically runs LR and KNN and prints results and statistics.
