@@ -6,7 +6,9 @@
 
 double LR::getLinearRegression(vector<vector<int>>& data, int dp, double X) {
 	// truncate to dp
-	data.resize(dp);
+	if (data.size() > dp){
+		data.resize(dp);
+	}
 
 	// where X = Sqr Ftg and Y = Price
 	vector<double> X_i;
@@ -35,7 +37,7 @@ double LR::getLinearRegression(vector<vector<int>>& data, int dp, double X) {
 
 	// Calculate (X_i - X_MEAN)(Y_i - Y_MEAN)
 	vector<double> Deviance_Product;
-	transform(X_deviance.begin(), X_deviance.end(), Y_deviance.begin(), back_inserter(Deviance_Product), std::multiplies<double>());
+	std::transform(X_deviance.begin(), X_deviance.end(), Y_deviance.begin(), back_inserter(Deviance_Product), std::multiplies<double>());
 
 	// Calculate (X_i - X_MEAN)^2
 	vector<double> X_deviance_sqr;
@@ -52,8 +54,9 @@ double LR::getLinearRegression(vector<vector<int>>& data, int dp, double X) {
 }
 
 double LR::getMultLinearRegression(vector<vector<int>>& data, int dp, double X1, double X2) {
-	// truncate to dp
-	data.resize(dp);
+	if (data.size() > dp){
+		data.resize(dp);
+	}
 
 	// where X1 = Year, X2 = Sqr Ftg, Y = Price
 	vector<double> X1_i;
@@ -74,34 +77,41 @@ double LR::getMultLinearRegression(vector<vector<int>>& data, int dp, double X1,
 	double X2_MEAN = X2_SUM / X2_i.size();
 	double Y_MEAN = Y_SUM / Y_i.size();
 
-	// X1_sqr_SUM, X2_sqr_SUM
-	double X1_sqr_SUM = 0;
-	for (auto& v : X1_i) X1_sqr_SUM += v * v;
-	double X2_sqr_SUM = 0;
-	for (auto& v : X2_i) X2_sqr_SUM += v * v;
+	// Deviances
+	for (auto& v : X1_i) v -= X1_MEAN;
+	for (auto& v : X2_i) v -= X2_MEAN;
+	for (auto& v : Y_i) v -= Y_MEAN;
+	
+	// Squares
+	vector<double> X1_sqr;
+	for (auto& v : X1_i) X1_sqr.push_back(v * v);
+	vector<double> X2_sqr;
+	for (auto& v : X2_i) X2_sqr.push_back(v * v);
+	vector<double> Y_sqr;
+	for (auto& v : Y_i) Y_sqr.push_back(v * v);
 
-	// X1Y_SUM, X2Y_SUM
+	// Products
 	vector<double> X1Y;
-	transform(X1_i.begin(), X1_i.end(), Y_i.begin(), back_inserter(X1Y), std::multiplies<double>());
-	double X1Y_SUM = accumulate(X1Y.begin(), X1Y.end(), 0);
+	std::transform(X1_i.begin(), X1_i.end(), Y_i.begin(), back_inserter(X1Y), std::multiplies<double>());
 	vector<double> X2Y;
-	transform(X2_i.begin(), X2_i.end(), Y_i.begin(), back_inserter(X2Y), std::multiplies<double>());
-	double X2Y_SUM = accumulate(X2Y.begin(), X2Y.end(), 0);
-
-	// X1X2_SUM
+	std::transform(X2_i.begin(), X2_i.end(), Y_i.begin(), back_inserter(X2Y), std::multiplies<double>());
 	vector<double> X1X2;
-	transform(X1_i.begin(), X1_i.end(), X2_i.begin(), back_inserter(X1X2), std::multiplies<double>());
+	std::transform(X1_i.begin(), X1_i.end(), X2_i.begin(), back_inserter(X1X2), std::multiplies<double>());
+
+	// Sums
+	double X1_sqr_SUM = accumulate(X1_sqr.begin(), X1_sqr.end(), 0);
+	double X2_sqr_SUM = accumulate(X2_sqr.begin(), X2_sqr.end(), 0);
+	double Y_sqr_SUM = accumulate(Y_sqr.begin(), Y_sqr.end(), 0);
+	double X1Y_SUM = accumulate(X1Y.begin(), X1Y.end(), 0);
+	double X2Y_SUM = accumulate(X2Y.begin(), X2Y.end(), 0);
 	double X1X2_SUM = accumulate(X1X2.begin(), X1X2.end(), 0);
 
-	double SX1_sqr = X1_sqr_SUM - (X1_SUM * X1_SUM / X1_i.size());
-	double SX2_sqr = X2_sqr_SUM - (X2_SUM * X2_SUM / X2_i.size());
-	double SX1Y = X1Y_SUM - (X1_SUM * Y_SUM / X1_i.size());
-	double SX2Y = X2Y_SUM - (X2_SUM * Y_SUM / X2_i.size());
-	double SX1X2 = X1X2_SUM - (X1_SUM * X2_SUM / X1_i.size());
-
-	double B_1 = (SX2_sqr * SX1Y - SX2Y * SX1X2) / (SX1_sqr * SX2_sqr - SX1X2 * SX1X2);
-	double B_2 = (SX1_sqr * SX2Y - SX1X2 * SX1Y) / (SX1_sqr * SX2_sqr - SX1X2 * SX1X2);
+	// Slopes/Intercepts
+	double B_1 = (X2_sqr_SUM * X1Y_SUM - X2Y_SUM * X1X2_SUM) / (X1_sqr_SUM * X2_sqr_SUM - X1X2_SUM * X1X2_SUM);
+	double B_2 = (X1_sqr_SUM * X2Y_SUM - X1X2_SUM * X1Y_SUM) / (X1_sqr_SUM * X2_sqr_SUM - X1X2_SUM * X1X2_SUM);
 	double B_0 = Y_MEAN - B_1 * X1_MEAN - B_2 * X2_MEAN;
 
+	cout << endl << B_0 << " + " << B_1 << "x1 + " << B_2 << "x2" << endl << "=";
+	
 	return B_0 + B_1 * X1 + B_2 * X2;
 }

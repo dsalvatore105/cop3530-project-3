@@ -35,8 +35,7 @@ int main() {
             cin >> dp >> x1 >> x2;
             
             cout << setprecision(2) << fixed;
-            cout << "Predicted value for year " << x1 << " and square footage " << x2 << ": "
-            << lrAlgo->getMultLinearRegression(data, dp, x1, x2) << endl;
+            cout << "Predicted value for year " << x1 << " and square footage " << x2 << ": " << lrAlgo->getMultLinearRegression(data, dp, x1, x2) << endl;
 
             //lrAlgo->getLinearRegression(data);
         } else if (cmd == "kNN") {
