@@ -10,38 +10,51 @@ int main() {
 
     vector<vector<int>> data;
 
-    // Recycled from Project 1
-    int cmdsToRun = 0;
-	cin >> cmdsToRun;
-
-	for (int i = 0; i < cmdsToRun; i++) {
+	for (;;) {
 		string cmd;
 		cin >> cmd;
 
 		if (cmd == "printData") {  
-            // Print data
+            // Print all stored data.
             parser->printData(data);
         } else if (cmd == "load"){
-            // Load data
+            // Load <x> data points.
             int count;
             cin >> count;
 
             parser->setFile("data/csvs/totaldata.csv");
+            if (parser->fileToRead == "") continue;
+
+            cout << "Attempting to load " << count << " data points from \"" << parser->fileToRead << "\"" << endl;
             parser->parseRows(data, count);
+
+            if (data.size() < count) {
+                cout << "The amount you tried to load exceeded the amount of data that could be loaded." 
+                << "\nAs a result, only " << data.size() << " points were loaded." << endl;
+            } else {
+                cout << "Successfully loaded." << endl;
+            }
+
+            cout << endl;
+
         } else if (cmd == "lr") {
-            // displays function info
             int dp;
             double x1, x2;
             cin >> dp >> x1 >> x2;
             
-            cout << setprecision(2) << fixed;
-            cout << "Predicted value for year " << x1 << " and square footage " << x2 << ": " << lrAlgo->getMultLinearRegression(data, dp, x1, x2) << endl;
+            cout << "\n=============================== PREDICTION ===============================" << endl;
+            cout << "Predicted value for year: " << setprecision(0) << fixed << x1 << " and square footage: " << x2 
+            << " | $" << setprecision(2) << fixed << lrAlgo->getMultLinearRegression(data, dp, x1, x2) << endl;
+            cout << "==========================================================================" << endl;
 
             //lrAlgo->getLinearRegression(data);
-        } else if (cmd == "kNN_debug") {
-            /*
-            int K = 2;
-            vector<pair<double, vector<int>>> nearestPoints = knnAlgo->getNearestPoints(data[0], data[1], data, K);
+
+        } else if (cmd == "kNN") {
+            int dp, x1, x2, K;
+            cin >> dp >> x1 >> x2 >> K;
+
+            vector<int> point = {x1, x2, 0};
+            vector<pair<double, vector<int>>> nearestPoints = knnAlgo->getNearestPoints(point, dp, data, K);
 
             for (int i = 0; i < K; i++) {
                 double distance = nearestPoints[i].first;
@@ -49,15 +62,14 @@ int main() {
                 cout << setprecision(2) << fixed;
 
                 cout << "K = " << i+1 << " {Distance: " << distance << "} | Nearest point: ";
-                parser->printRow(point);
+                parser->printRow(point, i);
             }
-            */
-        } else if (cmd == "kNN") {
-            int dp, x1, x2, K;
-            cin >> dp >> x1 >> x2 >> K;
 
             cout << setprecision(2) << fixed;
-            cout << "Predicted value for year " << x1 << " and square footage " << x2 << ": " << knnAlgo->predict(x1, x2, data, dp, K) << endl;
+            cout << "\n=============================== PREDICTION ===============================" << endl;
+            cout << "Predicted value for year: " << setprecision(0) << fixed << x1 << " and square footage: " << x2 
+            << setprecision(2) << fixed << " | $" << knnAlgo->predict(x1, x2, data, dp, K) << endl;
+            cout << "==========================================================================" << endl;
         } else if (cmd == "benchmark") {
             cout << endl;
             int dp;
@@ -83,14 +95,9 @@ int main() {
                 int knnPrediction = knnAlgo->predict(x1, x2, data, dp, K);
                 int lrPrediction = lrAlgo->getMultLinearRegression(data, dp, x1, x2);
 
-                //cout << "LR Prediction: " << lrPrediction << endl;
-                //cout << "KNN Prediction: " << knnPrediction << endl;
-                //cout << "Real value: " << y << endl; 
-
                 knnAvgDifference += (y - knnPrediction);
                 lrAvgDifference += (y - lrPrediction);
             }
-
 
             knnAvgDifference /= dp;
             lrAvgDifference /= dp;
@@ -110,7 +117,12 @@ int main() {
             else cout << "underestimated ";
 
             cout << "home prices by an average of $" << abs(knnAvgDifference) << "." << endl << endl;
-        }
+
+            if (abs(knnAvgDifference) < abs(lrAvgDifference)) cout << "This means the k-NN algorithm made more reliable predictions than the Multivariable Linear Regression algorithm." << endl;
+            else cout << "This means the Multivariable Linear Regression algorithm made more reliable predictions than the k-NN algorithm." << endl;
+
+        } else if (cmd == "exit") break;
+
         cin.clear();
 	}
 

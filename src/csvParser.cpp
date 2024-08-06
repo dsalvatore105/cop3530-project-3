@@ -32,8 +32,8 @@ void csvParser::setFile(string fileName) {
     else cout << "No file with name: " << fileName << " exists!" << endl;
 }
 
-void csvParser::printRow(vector<int>& row) {
-    cout << "{";
+void csvParser::printRow(vector<int>& row, int num) {
+    cout << "[" << num << "]: " << "{";
     const int& size = row.size();
 
     for (int i = 0; i < size; i++) {
@@ -45,7 +45,7 @@ void csvParser::printRow(vector<int>& row) {
 }
 
 void csvParser::printData(vector<vector<int>>& givenData) {
-    for (auto& row : givenData) printRow(row);
+    for (int i = 0; i < givenData.size(); i++) printRow(givenData[i], i);
 }
 
 void csvParser::parseRows(vector<vector<int>>& data, int rows) {
@@ -58,8 +58,10 @@ void csvParser::parseRows(vector<vector<int>>& data, int rows) {
     string row;
     while (getline(file, row)) {
         vector<int> values = splitToInts(row);
-        if (values.size() > 0) data.push_back(values);
-        rowsParsed++;
+        if (values.size() > 0) {
+            data.push_back(values);
+            rowsParsed++;
+        }
         if (rowsParsed >= rows) break;
     }
 }
