@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <vector>
 
-double LR::getLinearRegression(vector<vector<int>>& data, int dp, double X) {
+double LR::getLinearRegression(vector<vector<int>> data, int dp, double X) {
+	//
+
 	// truncate to dp
 	if (data.size() > dp){
 		data.resize(dp);
@@ -53,7 +55,7 @@ double LR::getLinearRegression(vector<vector<int>>& data, int dp, double X) {
 	return B_0 + B_1 * X;
 }
 
-double LR::getMultLinearRegression(vector<vector<int>>& data, int dp, double X1, double X2) {
+double LR::getMultLinearRegression(vector<vector<int>> data, int dp, double X1, double X2) {
 	if (data.size() > dp){
 		data.resize(dp);
 	}
