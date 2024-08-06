@@ -10,7 +10,7 @@ vector<int> csvParser::splitToInts(string& rowString) {
         char character = rowString[i];
 
         if (i == rowLength || character == delimiter) {
-            if (to_int == "") { 
+            if (to_int == "" || to_int == "0") { 
                 //cout << "There was a problem" << endl; // Malformed data, ignore the row
                 return {};
             };
